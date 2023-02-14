@@ -20,15 +20,13 @@ class StatefulServiceTest {
         StatefulService statefulService2 = ac.getBean(StatefulService.class);
 
         // ThreadA : A 사용자가 10000원 주문
-        statefulService1.order("userA", 10000);
+        int APrice = statefulService1.order("userA", 10000);
         // ThreadB : B 사용자가 20000원 주문
-        statefulService2.order("userA", 20000);
+        int BPrice = statefulService2.order("userB", 20000);
 
-        //ThreadA: 사용자 A 주문 금액 조회 => 10000원 이겠지?
-        int price = statefulService1.getPrice();
-        System.out.println("price = " + price);
-        // 서로 같은 객체를 참조하고 있으므로 price 값을 변환하면 10000원에서 -> 20000원으로 변경된다.
-        assertThat(statefulService1.getPrice()).isEqualTo(20000);
+        System.out.println("price = " + APrice);
+        // 설계 구조를 상태를 가지고 있는 형태에서 무상태로 변경.
+        assertThat(APrice).isEqualTo(10000);
     }
 
     static class TestConfig{
