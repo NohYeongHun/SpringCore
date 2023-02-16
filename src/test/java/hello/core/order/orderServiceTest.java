@@ -32,4 +32,10 @@ public class orderServiceTest {
 
         // then
     }
+
+    @Test
+    void fieldInjectionTest(){
+        OrderServiceImpl orderService = new OrderServiceImpl();
+        orderService.createOrder(1L, "itemA", 10000);
+    }
 }
