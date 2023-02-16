@@ -18,8 +18,8 @@ import static org.springframework.context.annotation.ComponentScan.*;
 public class AutoAppConfig {
 
     // 수동 빈이 자동 빈을 오버라이딩 해버림.
-    @Bean(name = "memoryMemberRepository")
-    public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
+//    @Bean(name = "memoryMemberRepository")
+//    public MemberRepository memberRepository() {
+//        return new MemoryMemberRepository();
+//    }
 }
