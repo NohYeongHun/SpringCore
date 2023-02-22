@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> objectProvider;
+
+    private final MyLogger myLogger;
+//    private final ObjectProvider<MyLogger> objectProvider;
 
 
     @RequestMapping("log-demo")
     @ResponseBody
-    public String logDemo(HttpServletRequest request){
+    public String logDemo(HttpServletRequest request) throws InterruptedException {
         String requestURL = request.getRequestURL().toString();
-        MyLogger myLogger = objectProvider.getObject();
+        System.out.println("myLogger" + myLogger.getClass());
         myLogger.setRequestURL(requestURL);
         myLogger.log("controller test");
+        Thread.sleep(10000);
         logDemoService.logic("testId");
         return "OK";
     }
