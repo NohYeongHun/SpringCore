@@ -3,11 +3,13 @@ package hello.core.scope;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
+import jakarta.inject.Provider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,11 +39,13 @@ public class SingletonWithPrototypeTest1 {
         assertThat(count2).isEqualTo(1);
     }
     static class ClientBean {
+//        @Autowired
+//        private ObjectProvider<PrototypeBean> prototypeBeanObjectProvider;
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanObjectProvider;
+        private Provider<PrototypeBean> prototypeBeanObjectProvider;
 
         public int logic() {
-            PrototypeBean prototypeBean = prototypeBeanObjectProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanObjectProvider.get();
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
